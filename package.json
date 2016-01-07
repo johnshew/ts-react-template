@@ -1,0 +1,23 @@
+{
+  "name": "ts-react-es6-filteredlist",
+  "version": "0.0.0",
+  "description": "Sample showing TSX and ES6 modules to build React components with cross component change notification.",
+  "scripts": {
+    "build": "browserify -d -p tsify src/main.tsx typings/tsd.d.ts -o public/bundle.js",
+    "watch": "watchify src/main.tsx typings/tsd.d.ts -v -d -p tsify  -o public/bundle.js",    
+    "start": "http-server public -o"
+  },
+  "author": "JohnShew@twitter.com",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "browserify": "^12.0.1",
+    "http-server": "^0.8.5",
+    "tsify": "*",
+    "watchify": "^3.6.1"
+  },
+  "dependencies": {
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3"
+  }
+}

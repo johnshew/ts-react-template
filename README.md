@@ -7,10 +7,10 @@ It leverages Typescript and TSD for typing and statement completion.  It uses br
 There are scripts in `package.json` to show how to install, build, and run the app.
 
 ## Initialization
-'''sh
+```sh
 npm install
 .\node_modules\.bin\tsd install
-'''
+```
 
 ## Building
 ```sh
@@ -19,12 +19,11 @@ npm run build
 
 or
 
-'''sh
+```sh
 npm run watch
 ```
 
 ## Running
-
-```sh
+```
 npm start
 ```

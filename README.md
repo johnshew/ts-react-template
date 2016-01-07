@@ -1,4 +1,4 @@
-# tsify Sample: JSX
+# React Typescript ES6 Starter Template
 
 A trivial React project demonstrating cross component change tracking. 
 

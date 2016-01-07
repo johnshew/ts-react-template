@@ -1,12 +1,26 @@
 # tsify Sample: JSX
 
-A trivial TypeScript React project building with tsify and demonstrating cross component change tracking.
+A trivial React project demonstrating cross component change tracking. 
 
-Check out the scripts in `package.json` for examples on how to run a build with either the CLI or the API.
+It leverages Typescript and TSD for typing and statement completion.  It uses browserify and tsify to provide ES6 modules.
 
+There are scripts in `package.json` to show how to install, build, and run the app.
+
+## Initialization
+'''sh
+npm install
+.\node_modules\.bin\tsd install
+'''
+
+## Building
 ```sh
 npm run build
-npm run watcd
+```
+
+or
+
+'''sh
+npm run watch
 ```
 
 ## Running

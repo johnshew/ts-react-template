@@ -1,29 +1,25 @@
 import * as React from 'react';
 
+interface FilterOptionsProperties extends React.Props<any> {
+    onFilteredListChange?: React.EventHandler<React.SyntheticEvent>;
+    options?: any[];
+    selected?: any;
+}
 
-class FilterOptions extends React.Component<any, any> 
+class FilterOptions extends React.Component<FilterOptionsProperties, any> 
 {
-  
-  handleChange(e) 
-  {
-    var val = e.target.value;
-    this.props.onFilterListChanged(val);
-  }
-  
+    
+  private handleChange = (e) => { 
+    this.props.onFilteredListChange && this.props.onFilteredListChange(e.target.value);
+  } 
+      
   render() {
-    var selectedOption = this.props.selected;
     return ( 
-      <select 
-        defaultValue = { selectedOption }
-        onChange = { this.handleChange.bind(this) } 
-      > 
+      <select defaultValue = {  this.props.selected } onChange = { this.handleChange } > 
         {
           this.props.options.map(option => {
             return ( 
-              <option 
-                key = { option }
-                value = { option }              
-              > 
+              <option key = { option } value = { option } >                             
                 { option } 
               </option>);
           })          
@@ -33,14 +29,24 @@ class FilterOptions extends React.Component<any, any>
   }
 }
 
-class FilterItems  extends React.Component<any, any> 
+interface FilteredItemsProps extends React.Props<any>
 {
-  render() {
-    var filter = this.props.filter;
-    var filteredData = this.props.data.filter((item) => {
-      return (!filter || item.sex == filter) //TODO generalize
-    });
+    data: any[];
+    filter: Object;
+    getKey(Object): Object; // returns the key for one of the items in the data array.
+}
 
+class FilteredItems  extends React.Component<FilteredItemsProps, any> 
+{
+  render() 
+  {
+    var filter = this.props.filter;
+    var filteredData = this.props.data;
+    if (filter != '') {  
+        filteredData = this.props.data.filter((item) => {
+        return (this.props.getKey(item) == filter); 
+        });
+    }
     return ( 
       <div> {
         filteredData.map(function(item) {
@@ -53,8 +59,13 @@ class FilterItems  extends React.Component<any, any>
   }
 }
 
+interface FilteredListProps extends React.Props<any>
+{
+    data: any[];
+    getKey(Object): Object; // returns the key for one of the items in the data array.
+}
 
-class FilteredList extends React.Component<any, any> 
+export class FilteredList extends React.Component<FilteredListProps, any> 
 {
   
   constructor(props) 
@@ -63,7 +74,7 @@ class FilteredList extends React.Component<any, any>
      this.state = { filter: ''};  
   }
     
-  handleFilterListChange(val) {
+  handleChange = (val) => {
     this.setState({
       filter: val
     });
@@ -73,18 +84,18 @@ class FilteredList extends React.Component<any, any>
   render() {
     // create list of options from input data 
     var optionsArray = this.props.data.map((item) => {
-      return item.sex;  //TODO fix to be general
+      return this.props.getKey(item);
     });
-    optionsArray.unshift("");
+    //TODO optionsArray.uniq from lodash    
+    optionsArray.unshift('');
     return ( 
     	<div className="filter-form">
         <FilterOptions 
           options={ optionsArray }      
           selected={ this.state.filter }
-          onFilterListChanged={ this.handleFilterListChange.bind(this) }
-		      // multi-select={ true }          
+          onFilteredListChange={ this.handleChange }             
         />  
-        <FilterItems data={ this.props.data } filter={ this.state.filter } /> 
+        <FilteredItems data={ this.props.data } filter={ this.state.filter } getKey={ this.props.getKey } /> 
       </div>
     );
   }

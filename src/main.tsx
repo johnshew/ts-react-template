@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render } from 'react-dom';
+import * as ReactDOM from 'react-dom';
 
 import FilteredList from './FilteredList';
 
@@ -11,6 +11,6 @@ var data = [{
   sex: 'female'
 }];
 
-render((
-	<FilteredList data= { data }  />
+ReactDOM.render((
+	<FilteredList data= { data } getKey={ (o) => o.sex  } />
 ), document.getElementById('app'));

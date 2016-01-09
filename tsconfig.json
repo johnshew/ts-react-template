@@ -1,5 +1,8 @@
 {
 	"compilerOptions": {
 		"jsx": "react"
-	}
+	},
+    "exclude": [
+        "public"
+    ]
 }

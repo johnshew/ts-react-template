@@ -33,7 +33,7 @@ interface FilteredItemsProps extends React.Props<any>
 {
     data: any[];
     filter: Object;
-    getKey(Object): Object; // returns the key for one of the items in the data array.
+    getFilterValue(Object): Object; // returns the key for one of the items in the data array.
 }
 
 class FilteredItems  extends React.Component<FilteredItemsProps, any> 
@@ -44,7 +44,7 @@ class FilteredItems  extends React.Component<FilteredItemsProps, any>
     var filteredData = this.props.data;
     if (filter != '') {  
         filteredData = this.props.data.filter((item) => {
-        return (this.props.getKey(item) == filter); 
+        return (this.props.getFilterValue(item) == filter); 
         });
     }
     return ( 
@@ -62,7 +62,7 @@ class FilteredItems  extends React.Component<FilteredItemsProps, any>
 interface FilteredListProps extends React.Props<any>
 {
     data: any[];
-    getKey(Object): Object; // returns the key for one of the items in the data array.
+    getFilterValue(Object): Object; // returns the key for one of the items in the data array.
 }
 
 export class FilteredList extends React.Component<FilteredListProps, any> 
@@ -84,7 +84,7 @@ export class FilteredList extends React.Component<FilteredListProps, any>
   render() {
     // create list of options from input data 
     var optionsArray = this.props.data.map((item) => {
-      return this.props.getKey(item);
+      return this.props.getFilterValue(item);
     });
     //TODO optionsArray.uniq from lodash    
     optionsArray.unshift('');
@@ -95,7 +95,7 @@ export class FilteredList extends React.Component<FilteredListProps, any>
           selected={ this.state.filter }
           onFilteredListChange={ this.handleChange }             
         />  
-        <FilteredItems data={ this.props.data } filter={ this.state.filter } getKey={ this.props.getKey } /> 
+        <FilteredItems data={ this.props.data } filter={ this.state.filter } getFilterValue={ this.props.getFilterValue } /> 
       </div>
     );
   }

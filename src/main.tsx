@@ -11,6 +11,6 @@ var data = [{
   sex: 'female'
 }];
 
-ReactDOM.render((
-	<FilteredList data= { data } getKey={ (o) => o.sex  } />
-), document.getElementById('app'));
+ReactDOM.render( 
+    <FilteredList data= { data } getFilterValue={ (o) => o.sex  } />, 
+    document.getElementById('app'));
